@@ -21,6 +21,12 @@ class Base58
     protected $service;
 
     /**
+     * @var StephenHill\Base58
+     * @since v2.1.0
+     */
+    private static $instance;
+
+    /**
      * Constructor
      *
      * @param string           $alphabet optional
@@ -81,5 +87,32 @@ class Base58
     public function decode(string $base58) : string
     {
         return $this->service->decode($base58);
+    }
+
+    /**
+     * Return a new instance of the Base58 class using the default arguments.
+     * 
+     * @since v2.1.0
+     * @return StephenHill\Base58
+     */
+    public static function create()
+    {
+        return new self();
+    }
+
+    /**
+     * Return a singleton instance of the Base58 class using the default arguments.
+     * 
+     * @since v2.1.0
+     * @return StephenHill\Base58
+     */
+    public static function singleton()
+    {
+        if (isset(self::$instance) === false)
+        {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
     }
 }

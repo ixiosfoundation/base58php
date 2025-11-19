@@ -25,6 +25,8 @@ class Base58Test extends TestCase
         $instances = [
             new Base58(null, new BCMathService()),
             new Base58(null, new GMPService()),
+            Base58::create(),
+            Base58::singleton(),
         ];
 
         $tests = [
@@ -71,5 +73,35 @@ class Base58Test extends TestCase
 
         $base58 = new Base58();
         $base58->decode("This isn't valid base58");
+    }
+
+    public function testSingleton(): void
+    {
+        $instance1 = Base58::singleton();
+        $instance2 = Base58::singleton();
+
+        $this->assertSame($instance1, $instance2);
+
+        $instance3 = Base58::create();
+        $instance4 = Base58::singleton();
+
+        $this->assertNotSame($instance3, $instance4);
+    }
+
+    public function testCreate(): void
+    {
+        $instance1 = Base58::create();
+        $instance2 = Base58::create();
+
+        $this->assertNotSame($instance1, $instance2);
+    }
+
+    public function testStatic(): void
+    {
+        $create = Base58::create();
+        $singleton = Base58::singleton();
+
+        $this->assertInstanceOf(Base58::class, $create);
+        $this->assertInstanceOf(Base58::class, $singleton);
     }
 }
