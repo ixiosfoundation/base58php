@@ -1,5 +1,5 @@
 {
-    "name": "stephenhill/base58",
+    "name": "ixiosfoundation/base58",
     "description": "Base58 Encoding and Decoding Library for PHP",
     "require": {
         "php": ">=8.1"
